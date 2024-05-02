@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import 'common/router.dart';
 import 'firebase_options.dart';
@@ -21,15 +22,23 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // ChangeNotifier();
-    return MaterialApp(
-      initialRoute: '/splash',
-      onGenerateRoute: AppRouter.generateRoute,
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        fontFamily: 'Poppins'
+    return MultiProvider(
+      providers: [],
+      child: MaterialApp(
+        initialRoute: '/splash',
+        onGenerateRoute: AppRouter.generateRoute,
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(fontFamily: 'Poppins'),
+        // home: const IntroPage(),
       ),
-      // home: const IntroPage(),
     );
+    // return MaterialApp(
+    //   initialRoute: '/splash',
+    //   onGenerateRoute: AppRouter.generateRoute,
+    //   debugShowCheckedModeBanner: false,
+    //   theme: ThemeData(fontFamily: 'Poppins'),
+    //   // home: const IntroPage(),
+    // );
   }
 }
 
@@ -84,7 +93,7 @@ class _LoginPageTestState extends State<LoginPageTest> {
                       password: password,
                     );
                     print('Token id: ${credential.user!.getIdToken()}');
-                    String? userId  = await credential.user!.getIdToken();
+                    String? userId = await credential.user!.getIdToken();
                     print('User Token: ${userId}');
                   } on FirebaseAuthException catch (e) {
                     if (e.code == 'weak-password') {
@@ -110,7 +119,7 @@ class _LoginPageTestState extends State<LoginPageTest> {
                     final credential = await FirebaseAuth.instance
                         .signInWithEmailAndPassword(
                             email: username, password: password);
-                    String? userId  = credential.user!.uid;
+                    String? userId = credential.user!.uid;
                     print('User Token: ${userId}');
                     print('Logged in Successfully');
                   } on FirebaseAuthException catch (e) {

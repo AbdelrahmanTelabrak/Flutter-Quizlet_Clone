@@ -19,7 +19,7 @@ class NewStudySetPage extends StatelessWidget {
         padding: EdgeInsets.only(
           left: horizontalPadding,
           right: horizontalPadding,
-          bottom: MediaQuery.of(context).viewInsets.bottom, // Adjust for keyboard
+          // bottom: MediaQuery.of(context).viewInsets.bottom, // Adjust for keyboard
         ),
         child: Column(    // Todo: search for Constrains
           // mainAxisSize: MainAxisSize.min,
@@ -41,6 +41,7 @@ class NewStudySetPage extends StatelessWidget {
               },
               child: boldText('Create', size: 16, color: Colors.white),
             ),
+            const SizedBox(height: 20),
             // const SizedBox(height: 300),
           ],
         ),
