@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "532280313662",
+    "project_id": "quizlet-clone-be072",
+    "storage_bucket": "quizlet-clone-be072.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:532280313662:android:a5aab1b018748f8ee08e6f",
+        "android_client_info": {
+          "package_name": "com.example.quizlet_clone"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDY6miKH3XvFD7bmvet4nygw1tbi-SDcgI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
