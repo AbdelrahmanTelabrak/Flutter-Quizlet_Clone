@@ -21,9 +21,35 @@ class NewStudySetPage extends StatelessWidget {
           right: horizontalPadding,
           // bottom: MediaQuery.of(context).viewInsets.bottom, // Adjust for keyboard
         ),
-        child: Column(    // Todo: search for Constrains
+        child: Column(
+          // Todo: search for Constrains
           // mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
+            // Form for Title and category:
+            Form(
+              key: viewModel.formKey,
+              child: Row(
+                children: [
+                  Expanded(
+                    child: basicFormField(
+                      hint: 'Quiz Title',
+                      validator: viewModel.basicValidator,
+                      onChanged: viewModel.updateTitle,
+                    ),
+                  ),
+                  const SizedBox(width: 20),
+                  Expanded(
+                    child: basicFormField(
+                      hint: 'Category',
+                      validator: viewModel.basicValidator,
+                      onChanged: viewModel.updateCategory,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: 25),
             ListView.separated(
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
@@ -42,7 +68,7 @@ class NewStudySetPage extends StatelessWidget {
               child: boldText('Create', size: 16, color: Colors.white),
             ),
             const SizedBox(height: 20),
-            // const SizedBox(height: 300),
+            const SizedBox(height: 300),
           ],
         ),
       ),
