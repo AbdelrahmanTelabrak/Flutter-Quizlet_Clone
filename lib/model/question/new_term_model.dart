@@ -13,6 +13,10 @@ class NewTermModel {
     };
   }
 
+  NewTermModel.fromJson(Map<String, dynamic> data)
+      : term = data['term'],
+        definition = data['definition'];
+
   factory NewTermModel.fromFirestore(
       DocumentSnapshot<Map<String, dynamic>> snapshot,
       SnapshotOptions? options,
