@@ -13,4 +13,14 @@ class QuizRepository{
       print("Failed to create document: $error");
     }
   }
+
+  Future<QuizModel?> getQuiz(String id) async {
+    final ref = _db.collection("study_sets").doc(id).withConverter(
+      fromFirestore: QuizModel.fromFirestore,
+      toFirestore: (QuizModel quizModel, _) =>
+          quizModel.toJson(),
+    );
+    final docSnap = await ref.get();
+    return docSnap.data();
+  }
 }
