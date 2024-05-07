@@ -2,6 +2,8 @@ import 'dart:convert';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:quizlet_clone/common/providers/user_data_provider.dart';
 import 'package:quizlet_clone/model/authentication/login_data.dart';
 import 'package:quizlet_clone/view/widgets/commons.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -23,6 +25,7 @@ class LoginViewModel extends ChangeNotifier {
             .signInWithEmailAndPassword(loginData.email!, loginData.password!);
         final accountData = await _repository.getUserData(credential.user!.uid);
         if (accountData != null) {
+          Provider.of<UserDataProvider>(context, listen: false).setUserData(accountData);
           final prefs = await SharedPreferences.getInstance();
           prefs.setBool('logged', true);
           prefs.setString('userData', json.encode(accountData.toJson()));

@@ -3,6 +3,8 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
+import 'package:quizlet_clone/common/providers/user_data_provider.dart';
 import 'package:quizlet_clone/model/authentication/account_data.dart';
 import 'package:quizlet_clone/view/intro/intro_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -55,10 +57,11 @@ class _SplashScreenState extends State<SplashScreen> {
     } else {
       final userData = prefs.getString('userData');
       final accountData = AccountDataModel.fromJson(json.decode(userData!));
+      Provider.of<UserDataProvider>(context, listen: false).setUserData(accountData);
       Navigator.pushReplacement(
         context,
         PageRouteBuilder(
-          pageBuilder: (_, __, ___) => HomePage(accountData: accountData),
+          pageBuilder: (_, __, ___) => HomePage(),
           transitionsBuilder: (_, animation, __, child) {
             return FadeTransition(
               opacity: animation,

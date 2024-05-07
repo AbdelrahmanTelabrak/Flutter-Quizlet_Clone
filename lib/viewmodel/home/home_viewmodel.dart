@@ -1,37 +1,23 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:quizlet_clone/common/providers/menu_quizzes_provider.dart';
+import 'package:quizlet_clone/common/shared_preference/quizes_sp.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../model/quiz/menu_quiz_model.dart';
 import '../../model/user/creator_model.dart';
 
-class HomeViewModel extends ChangeNotifier {
-  Future<void> logout(BuildContext context) async {
-    await FirebaseAuth.instance.signOut();
-    final prefs = await SharedPreferences.getInstance();
-    prefs.setBool('logged', false);
-    prefs.setString('userData', '');
-    Navigator.pushReplacementNamed(context, '/intro');
+class HomeViewModel {
+  Future<void> getMenuQuizzes(BuildContext context) async{
+    final quizzes = await MenuQuizzesSharedPreferences.getSavedQuizzes();
+    print('Home::: \n ${quizzes}');
+    if (quizzes != null) {
+      Provider.of<MenuQuizzesProvider>(context, listen: false).addQuizzes(quizzes);
+    }
   }
 
-  List<MenuQuizModel> getMenuQuizzes() {
-    List<MenuQuizModel> quizList = [];
-
-    for (int i = 1; i <= 10; i++) {
-      CreatorQuizItemModel creator = CreatorQuizItemModel(
-        username: "User$i",
-        token: 'token: $i',
-      );
-
-      MenuQuizModel quiz = MenuQuizModel(
-        id: i,
-        title: "Quiz Title $i",
-        qustionsNumber: i * 5, // Example number of questions
-        creator: creator,
-      );
-
-      quizList.add(quiz);
-    }
-    return quizList;
+  void addMenuQuiz(BuildContext context, MenuQuizModel menuQuiz) async {
+    Provider.of<MenuQuizzesProvider>(context, listen: false).addQuizzes([menuQuiz]);
   }
 }
