@@ -16,16 +16,6 @@ AppBar homeAppBar(BuildContext context) {
             height: 42,
             child: FloatingActionButton(
               onPressed: () {
-                // showModalBottomSheet(
-                //   context: context,
-                //   backgroundColor: lightBackground,
-                //   showDragHandle: true,
-                //   isScrollControlled: true,
-                //   useSafeArea: true,
-                //   builder: (context) {
-                //     return Container();
-                //   },
-                // );
                 _showAlertDialog(context);
               },
               backgroundColor: mainColor,
@@ -49,9 +39,6 @@ void _showAlertDialog(BuildContext context) {
   showDialog(
     context: context,
     builder: (BuildContext context) {
-      bool isCreateQuizSelected = false;
-      int selectedNumberOfQuestions = 5;
-
       return AlertDialog(
         title: Text('Choose an Option'),
         content: Column(

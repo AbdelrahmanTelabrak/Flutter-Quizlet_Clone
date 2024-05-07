@@ -3,6 +3,11 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:quizlet_clone/common/providers/menu_quizzes_provider.dart';
+import 'package:quizlet_clone/common/providers/user_data_provider.dart';
+import 'package:quizlet_clone/view/intro/intro_page.dart';
+import 'package:quizlet_clone/view/quiz/quiz_page.dart';
+import 'package:quizlet_clone/view/splash/splash_screen.dart';
 
 import 'common/router.dart';
 import 'firebase_options.dart';
@@ -21,9 +26,11 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    // ChangeNotifier();
     return MultiProvider(
-      providers: [],
+      providers: [
+        ChangeNotifierProvider(create: (context) => UserDataProvider()),
+        ChangeNotifierProvider(create: (context) => MenuQuizzesProvider()),
+      ],
       child: MaterialApp(
         initialRoute: '/splash',
         onGenerateRoute: AppRouter.generateRoute,
@@ -32,13 +39,18 @@ class MyApp extends StatelessWidget {
         // home: const IntroPage(),
       ),
     );
-    // return MaterialApp(
-    //   initialRoute: '/splash',
-    //   onGenerateRoute: AppRouter.generateRoute,
-    //   debugShowCheckedModeBanner: false,
-    //   theme: ThemeData(fontFamily: 'Poppins'),
-    //   // home: const IntroPage(),
-    // );
+    return MaterialApp(
+      initialRoute: '/splash',
+      onGenerateRoute: AppRouter.generateRoute,
+      // routes: {
+      //   '/splash': (context) => const SplashScreen(),
+      //   '/intro': (context) => const IntroPage(),
+      //   'quiz_page': (context) => const QuizPage(),
+      // },
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(fontFamily: 'Poppins'),
+      // home: const IntroPage(),
+    );
   }
 }
 
