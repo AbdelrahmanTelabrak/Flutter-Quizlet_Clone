@@ -1,0 +1,18 @@
+1. When adding a new quiz:                      $$ Done $$
+    add a new menuquizmodel object for the home page.
+2. when pressing on the menu quiz model:        $$ Done $$
+    navigate to a new page with a Future Builder. then, request the quiz data from firebase
+
+*********************
+
+# Use Provider state management:
+    1. UserDataProvider                         $$ Done $$
+    2. MenuQuizzesProvider                      $$ Done $$
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+TODO:
+1. finish add by code logic.
+2. change profile pic from the drawer.
+
+
