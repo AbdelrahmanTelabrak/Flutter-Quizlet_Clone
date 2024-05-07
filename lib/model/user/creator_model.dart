@@ -14,7 +14,7 @@ class CreatorQuizItemModel{
   }
 
   CreatorQuizItemModel.fromJson(Map<String, dynamic> data)
-      : token = data['uid'],
+      : token = data['token'],
         username = data['username'],
         profilePic = data['profilePic'];
 }
