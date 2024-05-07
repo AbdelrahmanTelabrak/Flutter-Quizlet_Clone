@@ -7,8 +7,7 @@ Widget basicFormField(
     required FormFieldValidator validator,
     bool enabled = true,
     Function(String)? onChanged,
-    TextInputType keyboardType = TextInputType.text,
-    FocusNode? focusNode}) {
+    TextInputType keyboardType = TextInputType.text}) {
   return TextFormField(
     validator: validator,
     onChanged: onChanged,
@@ -17,7 +16,6 @@ Widget basicFormField(
     keyboardType: keyboardType,
     minLines: 1,
     maxLines: null,
-    focusNode: focusNode,
     decoration: InputDecoration(
       // contentPadding: const EdgeInsets.symmetric(vertical: 15, horizontal: 10),
       enabledBorder: UnderlineInputBorder(
