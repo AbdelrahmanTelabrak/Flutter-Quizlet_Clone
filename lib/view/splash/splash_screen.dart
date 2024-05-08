@@ -56,7 +56,9 @@ class _SplashScreenState extends State<SplashScreen> {
       );
     } else {
       final userData = prefs.getString('userData');
-      final accountData = AccountDataModel.fromJson(json.decode(userData!));
+      print('Stored User data: \n ${json.decode(userData!)}');
+      final accountData = AccountDataModel.fromJson(json.decode(userData));
+      // accountData.username = 'Abdelrahman Elabrak';
       Provider.of<UserDataProvider>(context, listen: false).setUserData(accountData);
       Navigator.pushReplacement(
         context,

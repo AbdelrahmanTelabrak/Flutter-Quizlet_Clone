@@ -37,7 +37,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   children: [
                     Column(
                       children: [
-                        googleFullWidthButton(),
+                        googleFullWidthButton(context),
                         const SizedBox(height: 25),
                         Stack(
                           alignment: Alignment.center,

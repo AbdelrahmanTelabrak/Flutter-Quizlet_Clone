@@ -42,7 +42,7 @@ class _LoginPageState extends State<LoginPage> {
                   children: [
                     Column(
                       children: [
-                        googleFullWidthButton(),
+                        googleFullWidthButton(context),
                         const SizedBox(height: 25),
                         Stack(
                           alignment: Alignment.center,
