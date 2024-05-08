@@ -1,20 +1,14 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:quizlet_clone/common/colors.dart';
 import 'package:quizlet_clone/common/paddings.dart';
-import 'package:quizlet_clone/common/providers/menu_quizzes_provider.dart';
-import 'package:quizlet_clone/view/quiz/quiz_item.dart';
 import 'package:quizlet_clone/view/quiz/recent_quizzes_list.dart';
 import 'package:quizlet_clone/view/widgets/appbar.dart';
-import 'package:quizlet_clone/view/widgets/buttons.dart';
 import 'package:quizlet_clone/view/widgets/drawer.dart';
 import 'package:quizlet_clone/view/widgets/texts.dart';
 import 'package:quizlet_clone/viewmodel/home/home_viewmodel.dart';
 
-import '../../model/authentication/account_data.dart';
+import '../../common/providers/menu_quizzes_provider.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -32,11 +26,15 @@ class _HomePageState extends State<HomePage> {
     super.initState();
     initMenuQuizzes();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: lightBackground,
-      appBar: homeAppBar(context),
+      appBar: homeAppBar(context, (menuQuiz) {
+        Provider.of<MenuQuizzesProvider>(context, listen: false)
+            .addQuizzes([menuQuiz]);
+      }),
       drawer: const HomeDrawer(),
       body: SingleChildScrollView(
         child: Padding(
@@ -45,7 +43,7 @@ class _HomePageState extends State<HomePage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const SizedBox(height: 20),
-              semiBoldText('Recent', color: Colors.black, size: 18),
+              semiBoldText('My Quizzes', color: Colors.black, size: 18),
               defaultDivider(),
               // list view . builder for the questions
               RecentQuizzesListView(),
@@ -61,7 +59,11 @@ class _HomePageState extends State<HomePage> {
   }
 
   void initMenuQuizzes() async {
+    final context = this.context; // Save the context
     await _viewModel.getMenuQuizzes(context);
-    setState(() {});
+    if (mounted) {
+      // Check if the widget is still mounted before calling setState
+      setState(() {});
+    }
   }
 }

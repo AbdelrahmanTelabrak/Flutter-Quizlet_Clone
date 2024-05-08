@@ -11,6 +11,7 @@ class UserSharedPreferences {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     final jsonData = jsonEncode(accountData.toJson());
     await prefs.setString(_keyAccountData, jsonData);
+    await prefs.setBool('logged', true);
     _logged = true;
   }
 
@@ -27,6 +28,7 @@ class UserSharedPreferences {
   static Future<void> removeAccountData() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.remove(_keyAccountData);
+    await prefs.setBool('logged', false);
     _logged = false;
   }
 }

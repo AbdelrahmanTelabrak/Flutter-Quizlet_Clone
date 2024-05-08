@@ -1,9 +1,14 @@
+import 'dart:convert';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:quizlet_clone/model/authentication/birthdate_creator.dart';
 import 'package:quizlet_clone/model/authentication/account_data.dart';
 import 'package:quizlet_clone/view/widgets/commons.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../../common/providers/user_data_provider.dart';
 import '../../../repository/authentication/auth_repo.dart';
 
 class RegisterViewModel extends ChangeNotifier {
@@ -32,6 +37,10 @@ class RegisterViewModel extends ChangeNotifier {
         accountData.uid = credential.user!.uid;
         // Store the user's data in FireStore
         await _repository.storeUserData(accountData);
+        final prefs = await SharedPreferences.getInstance();
+        prefs.setBool('logged', true);
+        prefs.setString('userData', json.encode(accountData.toJson()));
+        Provider.of<UserDataProvider>(context, listen: false).setUserData(accountData);
         Navigator.pushReplacementNamed(
           context,
           '/home',

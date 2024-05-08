@@ -5,8 +5,14 @@ import 'package:quizlet_clone/view/quiz/quiz_item.dart';
 
 import '../../common/providers/menu_quizzes_provider.dart';
 
-class RecentQuizzesListView extends StatelessWidget {
+class RecentQuizzesListView extends StatefulWidget {
   const RecentQuizzesListView({super.key});
+
+  @override
+  State<RecentQuizzesListView> createState() => _RecentQuizzesListViewState();
+}
+
+class _RecentQuizzesListViewState extends State<RecentQuizzesListView> {
   @override
   Widget build(BuildContext context) {
     return ListView.separated(

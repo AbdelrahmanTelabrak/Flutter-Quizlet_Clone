@@ -1,8 +1,9 @@
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:quizlet_clone/common/providers/user_data_provider.dart';
-import 'package:quizlet_clone/model/authentication/account_data.dart';
-import 'package:quizlet_clone/model/quiz/menu_quiz_model.dart';
+import 'package:quizlet_clone/repository/authentication/auth_repo.dart';
 import 'package:quizlet_clone/view/widgets/texts.dart';
 
 import '../../common/colors.dart';
@@ -27,9 +28,24 @@ class HomeDrawer extends StatelessWidget {
                       decoration: const BoxDecoration(
                         color: Colors.white,
                       ),
-                      currentAccountPicture: CircleAvatar(
-                        backgroundImage: getProfilePic(value.accountData!.profilePic),
-                        radius: 60,
+                      currentAccountPicture: InkWell(
+                        onTap: () async {
+                          final picker = ImagePicker();
+                          final pickedFile = await picker.pickImage(source: ImageSource.gallery);
+                          if (pickedFile != null) {
+                            final file = await pickedFile.readAsBytes();
+                            final ref = FirebaseStorage.instance.ref('images/${value.accountData!.uid}/profilePic');
+                            await ref.putData(file);
+                            final imageUrl = await ref.getDownloadURL();
+                            Provider.of<UserDataProvider>(context, listen: false).updateUserProfilePic(imageUrl);
+                            final authRepo = AuthenticationRepository();
+                            await authRepo.storeUserData(Provider.of<UserDataProvider>(context, listen: false).accountData!);
+                          }
+                        },
+                        child: CircleAvatar(
+                          backgroundImage: getProfilePic(value.accountData!.profilePic),
+                          radius: 60,
+                        ),
                       ),
                       accountName: boldText(value.accountData!.username!,
                           size: 16, color: Colors.black),

@@ -8,7 +8,12 @@ class MenuQuizzesProvider extends ChangeNotifier{
 
   void addQuizzes(List<MenuQuizModel> quizzes){
     menuQuizzes.addAll(quizzes);
-    print("PROVIDER:::: \n ${menuQuizzes}");
+    print("PROVIDER:::: \n ${menuQuizzes.map((e) => e.toJson())}");
+    notifyListeners();
+  }
+
+  void resetQuizzes(){
+    menuQuizzes.clear();
     notifyListeners();
   }
 }
