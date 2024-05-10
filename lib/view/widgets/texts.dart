@@ -29,6 +29,7 @@ Widget mediumText(String txt, { double size = 12, TextAlign align  = TextAlign.j
     txt,
     textAlign: align,
     style: TextStyle(
+      // overflow: TextOverflow.,
       fontSize: size,
       fontWeight: FontWeight.w500,
       color: color,

@@ -31,7 +31,9 @@ class _MCQWidgetState extends State<MCQWidget> {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(10),
-        boxShadow: [BoxShadow(color: Colors.grey.shade100, blurRadius: 2, spreadRadius: 5)],
+        boxShadow: [
+          BoxShadow(color: Colors.grey.shade100, blurRadius: 2, spreadRadius: 5)
+        ],
       ),
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 12.0),
@@ -66,8 +68,11 @@ class _MCQWidgetState extends State<MCQWidget> {
             SizedBox(height: 10),
             GridView(
               shrinkWrap: true,
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2, mainAxisExtent: 50, crossAxisSpacing: 20),
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                mainAxisExtent: 60,
+                crossAxisSpacing: 20,
+              ),
               children: List.generate(
                 widget.options.length,
                 (index) => GestureDetector(
@@ -80,7 +85,7 @@ class _MCQWidgetState extends State<MCQWidget> {
                   },
                   child: Container(
                     margin: EdgeInsets.symmetric(vertical: 5),
-                    // padding: EdgeInsets.all(10),
+                    padding: EdgeInsets.zero,
                     alignment: Alignment.center,
                     decoration: BoxDecoration(
                       border: Border.all(
@@ -109,6 +114,7 @@ class _MCQWidgetState extends State<MCQWidget> {
                     child: mediumText(
                       widget.options[index],
                       size: 16,
+                      align: TextAlign.center,
                       color: _selectedIndex == null
                           ? Colors.black
                           : _selectedIndex == index
